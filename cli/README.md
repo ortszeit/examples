@@ -55,9 +55,8 @@ ln -s "$PWD/cli/ortszeit.py" ~/.local/bin/ortszeit
 | `open [--studio]` | Opens your blog (or Studio) in the browser. |
 
 Global option: `--base-url URL` (or `ORTSZEIT_BASE_URL`), default
-`https://studio.ortszeit.app`. The API docs currently show the schema under
-`accounts.ortszeit.app`; if `studio.` does not answer for you yet, pass
-`--base-url https://accounts.ortszeit.app`.
+`https://studio.ortszeit.app` (the API's address, as in the
+[API docs](https://www.ortszeit.app/docs/api/)).
 
 ### Your API key
 
