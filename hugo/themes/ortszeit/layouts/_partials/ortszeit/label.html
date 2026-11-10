@@ -1,0 +1,6 @@
+{{- /* A post's name in lists and feeds: its title, or its local date (titles are optional). */ -}}
+{{- $label := .Title -}}
+{{- if not $label -}}
+  {{- $label = partial "ortszeit/date.html" (dict "t" (partial "ortszeit/local-time.html" .) "long" true) -}}
+{{- end -}}
+{{- return $label -}}

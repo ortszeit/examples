@@ -1,0 +1,9 @@
+{{- /* "3 October 2026 – 6 October 2026 · 3 posts" under a trip's title. */ -}}
+{{- $count := i18n "posts" .count -}}
+{{- with .trip.Params.started_on -}}
+  {{- $start := partial "ortszeit/date.html" (dict "t" (time.AsTime .) "long" true) -}}
+  {{- $end := i18n "ongoing" -}}
+  {{- with $.trip.Params.ended_on -}}{{- $end = partial "ortszeit/date.html" (dict "t" (time.AsTime .) "long" true) -}}{{- end -}}
+  {{- $count = printf "%s – %s · %s" $start $end $count -}}
+{{- end -}}
+{{- return $count -}}

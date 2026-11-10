@@ -1,0 +1,30 @@
+{{- /* layout: archive — the trips, then every listed post by year (in local time). */ -}}
+{{ define "main" }}
+  <h1 class="meta">{{ .Title }}</h1>
+  {{- $trips := where (where site.Sections "Type" "trip") "Params.visibility" "public" }}
+  {{- with $trips }}
+  <h2 class="meta year">{{ i18n "trips" }}</h2>
+  <ul class="stack">
+    {{- range sort . "Params.started_on" "desc" }}
+    <li><span class="meta when">{{ with .Params.started_on }}{{ (time.AsTime .).Year }}{{ end }}</span><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+  {{- $posts := partial "ortszeit/posts.html" . }}
+  {{- $year := 0 }}
+  {{- range $posts }}
+    {{- $t := partial "ortszeit/local-time.html" . }}
+    {{- $show := partial "ortszeit/settings.html" . }}
+    {{- if ne $t.Year $year }}
+      {{- if $year }}</ul>{{ end }}
+  <h2 class="meta year">{{ $t.Year }}</h2>
+  <ul class="stack clocked">
+      {{- $year = $t.Year }}
+    {{- end }}
+    {{- $when := partial "ortszeit/date.html" (dict "t" $t) }}
+    {{- if $show.clock }}{{ $when = printf "%s · %s" $when ($t.Format "15:04") }}{{ end }}
+    <li><span class="meta when">{{ $when }}</span><a href="{{ .RelPermalink }}">{{ partial "ortszeit/label.html" . }}</a></li>
+  {{- end }}
+  {{- if $year }}</ul>{{ end }}
+  {{- if not (or $posts $trips) }}<p class="meta">{{ i18n "nothing" }}</p>{{ end }}
+{{ end }}

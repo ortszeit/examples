@@ -17,6 +17,7 @@ can try them before exporting your own blog:
 
 ```sh
 uv run ssg/ortszeit_ssg.py sample-export -o site --serve
+uv run hugo/ortszeit_to_hugo.py sample-export -o mysite && cd mysite && hugo server
 ```
 
 These are examples, kept short enough to read. Ortszeit's own command-line tool

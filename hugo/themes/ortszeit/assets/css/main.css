@@ -1,0 +1,69 @@
+/* The Ortszeit theme (spec §5): system fonts, colour tokens, the monospace
+   meta line, the route rule on trip pages. Dark mode follows the system. */
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --paper:#F7F8F7;--ink:#16181C;--muted:#6A7077;--rule:#E2E5E3;
+  --accent:#0E6E5C;--accent-dim:#D6E5E0;
+  --font-body:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
+  --font-meta:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --measure:34rem;
+  color-scheme:light dark
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#14161A;--ink:#E8EAE8;--muted:#92999B;--rule:#262A2F;--accent:#4FB79C;--accent-dim:#1E3A34}
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:18px;
+  line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-dim)}
+a:hover,a:focus-visible{border-bottom-color:var(--accent)}
+img{max-width:100%;height:auto;display:block}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.25rem}
+.meta{font-family:var(--font-meta);font-size:13px;letter-spacing:.02em;line-height:1.5;color:var(--muted);
+  text-transform:uppercase;margin:0}
+.meta a{color:var(--muted);border-bottom-color:var(--rule)}
+.meta a:hover,.meta a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
+.site{padding:3rem 0 1.25rem}
+.site .title{font-size:1.35rem;line-height:1.3;margin:0;font-weight:600;letter-spacing:-.01em}
+.site .title a{color:var(--ink);border:0}
+.bio{color:var(--muted);font-size:1rem;margin:.5rem 0 0}
+.site nav{margin-top:1.25rem}
+.site nav a{margin-right:1.25rem;border:0}
+main{padding-bottom:4rem}
+.page-title{font-size:1.25rem;line-height:1.35;margin:0 0 .35rem;font-weight:600;letter-spacing:-.01em}
+.post{padding:2.25rem 0;border-top:1px solid var(--rule)}
+.post:first-child{border-top:0;padding-top:.5rem}
+.post h1,.post h2{font-size:1.25rem;line-height:1.35;margin:.6rem 0 0;font-weight:600;letter-spacing:-.01em}
+.post h1 a,.post h2 a{color:var(--ink);border:0}
+.body{margin-top:.85rem}
+.body>:first-child{margin-top:0}
+.body>:last-child{margin-bottom:0}
+.body p{margin:0 0 1rem}
+.body blockquote{margin:1.25rem 0;padding-left:1rem;border-left:2px solid var(--rule);color:var(--muted)}
+.body ul,.body ol{margin:0 0 1rem;padding-left:1.25rem}
+.body code{font-family:var(--font-meta);font-size:.85em}
+.photos{margin:1.25rem 0 0}
+.photos.solo img{width:100%;border-radius:2px}
+.photos.solo a{border:0;display:block}
+.strip{display:flex;gap:.5rem;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+  padding-bottom:.5rem;scrollbar-width:thin}
+.strip a{flex:0 0 auto;border:0;line-height:0;scroll-snap-align:start;border-radius:2px}
+.strip img{width:9rem;height:9rem;object-fit:cover;border-radius:2px}
+.back{margin-top:.5rem}
+.route-wrap{max-width:calc(var(--measure) + 1.5rem)}
+.route{border-left:1px solid var(--rule);padding-left:1.5rem;margin-top:1.5rem}
+.route .post{position:relative;border-top:0;padding:1.75rem 0}
+.route .post::before{content:"";position:absolute;left:calc(-1.5rem - 4px);top:2rem;width:7px;height:7px;
+  border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--paper)}
+.route .post:first-child{padding-top:.75rem}
+.route .post:first-child::before{top:1rem}
+.stack{list-style:none;margin:0 0 2rem;padding:0}
+.stack li{padding:.35rem 0;display:flex;gap:.75rem;align-items:baseline}
+.stack .when{flex:0 0 4.5rem;white-space:nowrap}
+.stack.clocked .when{flex-basis:8.5rem}
+.year{margin:2rem 0 .5rem;color:var(--ink)}
+.site-footer{border-top:1px solid var(--rule);padding:1.5rem 0 3rem}
+.site-footer .meta+.meta{margin-top:.35rem}
+@media (max-width:26rem){.strip img{width:7.5rem;height:7.5rem}.stack.clocked .when{flex-basis:7rem}}

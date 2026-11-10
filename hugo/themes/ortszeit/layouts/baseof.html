@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default site.Language.Lang }}">
+<head>
+{{ partial "head.html" . }}
+</head>
+<body>
+<div class="wrap{{ if eq .Type "trip" }} route-wrap{{ end }}">
+  <header class="site">
+    {{ if .IsHome }}<h1 class="title">{{ else }}<p class="title">{{ end }}<a href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>{{ if .IsHome }}</h1>{{ else }}</p>{{ end }}
+    {{- with site.Params.description }}
+    <p class="bio">{{ . }}</p>
+    {{- end }}
+    <nav class="meta">
+      {{- with site.GetPage "/archive" }}<a href="{{ .RelPermalink }}">{{ i18n "archive" }}</a>{{ end -}}
+      {{- with site.Home.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">{{ i18n "feed" }}</a>{{ end -}}
+    </nav>
+  </header>
+  <main>
+    {{- block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+</div>
+</body>
+</html>

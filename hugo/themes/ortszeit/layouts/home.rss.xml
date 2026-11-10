@@ -1,0 +1,27 @@
+{{- /*
+  RSS 2.0 at /feed.xml: the newest 20 listed posts, full text. pubDate keeps
+  the post's local offset, the same instant written as it was there.
+*/ -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ site.Params.description | default site.Title }}</description>
+    <language>{{ site.Language.LanguageCode | default site.Language.Lang }}</language>
+    <generator>Hugo</generator>
+    {{- with .OutputFormats.Get "rss" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType.Type | safeHTML }}
+    {{- end }}
+    {{- range first 20 (partial "ortszeit/posts.html" .) }}
+    {{- $t := partial "ortszeit/local-time.html" . }}
+    <item>
+      <title>{{ partial "ortszeit/label.html" . }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <pubDate>{{ $t.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <description>{{ .Content | transform.XMLEscape | safeHTML }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

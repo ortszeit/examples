@@ -1,0 +1,26 @@
+{{- /*
+  Photos listed in params.photos, in order, from the page bundle (spec §5):
+  one photo runs the full measure at its natural aspect ratio; two or more
+  become a snap-scrolling strip of square thumbnails. The hosted blog opens a
+  lightbox there; this theme has no JavaScript, so a thumbnail links to the
+  large rendition instead.
+*/ -}}
+{{- $shown := slice -}}
+{{- range .Params.photos -}}
+  {{- $alt := .alt | default "" -}}
+  {{- with $.Resources.Get .file -}}
+    {{- $r := partial "ortszeit/photo.html" . -}}
+    {{- if $r.src -}}{{- $shown = $shown | append (merge $r (dict "alt" $alt)) -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if eq (len $shown) 1 -}}
+  {{- with index $shown 0 -}}
+<div class="photos solo"><a href="{{ .large.RelPermalink }}"><img src="{{ .src }}" srcset="{{ .srcset }}" sizes="(max-width: 36rem) 100vw, 34rem" alt="{{ .alt }}" width="{{ .width }}" height="{{ .height }}" loading="lazy" decoding="async"></a></div>
+  {{- end -}}
+{{- else if $shown -}}
+<div class="photos strip">
+  {{- range $shown -}}
+  <a href="{{ .large.RelPermalink }}"><img src="{{ .src }}" srcset="{{ .srcset }}" sizes="9rem" alt="{{ .alt }}" loading="lazy" decoding="async"></a>
+  {{- end -}}
+</div>
+{{- end -}}

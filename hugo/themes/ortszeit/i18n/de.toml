@@ -1,0 +1,25 @@
+archive = "Archiv"
+trips = "Reisen"
+feed = "Feed"
+imprint = "Impressum"
+ongoing = "läuft noch"
+every_post = "Alle Beiträge"
+nothing = "Hier ist noch nichts veröffentlicht."
+nothing_trip = "Auf dieser Reise ist noch nichts veröffentlicht."
+not_found = "Diese Seite gibt es nicht."
+back_home = "Zur Startseite"
+place_names = "Ortsnamen"
+built_with = "Erstellt mit {{ .hugo }}, importiert aus {{ .ortszeit }}"
+# Datumsformate. Platzhalter: .day .month .year
+day_month = "{{ .day }}. {{ .month }}"
+long_date = "{{ .day }}. {{ .month }} {{ .year }}"
+
+[posts]
+one = "{{ .Count }} Beitrag"
+other = "{{ .Count }} Beiträge"
+
+[month_short]
+other = "Jan.|Feb.|März|Apr.|Mai|Juni|Juli|Aug.|Sep.|Okt.|Nov.|Dez."
+
+[month_long]
+other = "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember"

@@ -1,0 +1,10 @@
+{{- /*
+  A date in the site's language: "4 Oct" or, with long, "4 October 2026".
+  Usage: {{ partial "ortszeit/date.html" (dict "t" $t "long" true) }}
+*/ -}}
+{{- $i := sub (int .t.Month) 1 -}}
+{{- $key := cond .long "month_long" "month_short" -}}
+{{- $month := index (split (i18n $key) "|") $i -}}
+{{- $args := dict "day" .t.Day "month" $month "year" .t.Year -}}
+{{- $label := i18n (cond .long "long_date" "day_month") $args -}}
+{{- return $label -}}

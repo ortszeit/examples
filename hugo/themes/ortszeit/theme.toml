@@ -1,0 +1,5 @@
+name = "Ortszeit"
+license = "MIT"
+description = "The Ortszeit look for Hugo: a monospace meta line in the post's local time, a route rule on trip pages, no JavaScript."
+homepage = "https://github.com/ortszeit/examples"
+min_version = "0.146.0"

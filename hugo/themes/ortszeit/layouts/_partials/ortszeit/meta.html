@@ -1,0 +1,29 @@
+{{- /*
+  The theme's signature device (spec §5): PLACE · DATE · TIME · COORDINATES,
+  in monospace above every post. Only what exists and what the blog chose to
+  show is rendered. The datetime attribute carries the hour only when the
+  hour is shown.
+
+  Usage: {{ partial "ortszeit/meta.html" (dict "page" . "linked" true) }}
+*/ -}}
+{{- $p := .page -}}
+{{- $t := partial "ortszeit/local-time.html" $p -}}
+{{- $show := partial "ortszeit/settings.html" $p -}}
+{{- $label := partial "ortszeit/date.html" (dict "t" $t) -}}
+{{- $stamp := $t.Format "2006-01-02" -}}
+{{- if $show.clock -}}
+  {{- $label = printf "%s · %s" $label ($t.Format "15:04") -}}
+  {{- $stamp = $t.Format "2006-01-02T15:04:05-07:00" -}}
+{{- end -}}
+<p class="meta">
+  {{- if $show.place -}}<span class="place">{{ $p.Params.place.name }}</span> · {{ end -}}
+  {{- if .linked -}}<a href="{{ $p.RelPermalink }}">{{- end -}}
+  <time {{ printf "datetime=%q" $stamp | safeHTMLAttr }}>{{ $label }}</time>
+  {{- if .linked -}}</a>{{- end -}}
+  {{- if $show.coordinates -}}
+    {{- $lat := float $p.Params.coordinates.lat -}}
+    {{- $lon := float $p.Params.coordinates.lon -}}
+    {{- printf " · %.3f%s %.3f%s" (math.Abs $lat) (cond (ge $lat 0) "N" "S") (math.Abs $lon) (cond (ge $lon 0) "E" "W") -}}
+  {{- end -}}
+</p>
+{{- /**/ -}}

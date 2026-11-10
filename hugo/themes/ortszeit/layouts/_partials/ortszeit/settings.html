@@ -1,0 +1,16 @@
+{{- /*
+  What a page may show, from site.Params.display and the page's hide_location.
+  Returns a dict: clock, place, coordinates (all booleans).
+
+  Usage: {{ $show := partial "ortszeit/settings.html" . }}
+*/ -}}
+{{- $location := "place" -}}
+{{- $time := true -}}
+{{- with site.Params.display -}}
+  {{- with .location -}}{{- $location = . -}}{{- end -}}
+  {{- if isset . "time" -}}{{- $time = .time -}}{{- end -}}
+{{- end -}}
+{{- $place := and .Params.place (not .Params.hide_location) (ne $location "hidden") -}}
+{{- $coords := and $place .Params.coordinates (eq $location "coordinates") -}}
+{{- $clock := and .Params.time_zone $time -}}
+{{- return (dict "clock" (not (not $clock)) "place" (not (not $place)) "coordinates" (not (not $coords))) -}}

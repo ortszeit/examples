@@ -1,0 +1,29 @@
+{{- /*
+  Web renditions of one image resource: WebP at 400, 800 and 1600 px (never
+  wider than the original). Hugo writes processed images without EXIF, so no
+  rendition carries GPS data. Returns a dict, or nothing for a file Hugo
+  cannot process.
+
+  Usage: {{ $r := partial "ortszeit/photo.html" $resource }}
+*/ -}}
+{{- $result := dict -}}
+{{- if in (slice "jpeg" "png" "webp" "gif" "tiff" "bmp") .MediaType.SubType -}}
+  {{- $widths := slice -}}
+  {{- range slice 400 800 1600 -}}
+    {{- if lt . $.Width -}}{{- $widths = $widths | append . -}}{{- end -}}
+  {{- end -}}
+  {{- $top := cond (lt .Width 1600) .Width 1600 -}}
+  {{- if not (in $widths $top) -}}{{- $widths = $widths | append $top -}}{{- end -}}
+  {{- $srcset := slice -}}
+  {{- $src := "" -}}
+  {{- $large := "" -}}
+  {{- $size := slice 0 0 -}}
+  {{- range $widths -}}
+    {{- $r := $.Resize (printf "%dx webp q80" .) -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $r.RelPermalink .) -}}
+    {{- if or (not $src) (le . 800) -}}{{- $src = $r.RelPermalink -}}{{- $size = slice $r.Width $r.Height -}}{{- end -}}
+    {{- $large = $r -}}
+  {{- end -}}
+  {{- $result = dict "src" $src "srcset" (delimit $srcset ", ") "width" (index $size 0) "height" (index $size 1) "large" $large -}}
+{{- end -}}
+{{- return $result -}}

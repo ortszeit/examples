@@ -1,0 +1,19 @@
+{{- /* JSON Feed 1.1 at /feed.json, the same address as on the hosted blog. */ -}}
+{{- $items := slice -}}
+{{- range first 20 (partial "ortszeit/posts.html" .) -}}
+  {{- $t := partial "ortszeit/local-time.html" . -}}
+  {{- $item := dict "id" .Permalink "url" .Permalink "content_html" (string .Content) "date_published" ($t.Format "2006-01-02T15:04:05-07:00") -}}
+  {{- with .Title -}}{{- $item = merge $item (dict "title" .) -}}{{- end -}}
+  {{- $page := . -}}
+  {{- range first 1 .Params.photos -}}
+    {{- with $page.Resources.Get .file -}}
+      {{- with (partial "ortszeit/photo.html" .).large -}}{{- $item = merge $item (dict "image" .Permalink) -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if (partial "ortszeit/settings.html" .).place -}}{{- $item = merge $item (dict "tags" (slice .Params.place.name)) -}}{{- end -}}
+  {{- $items = $items | append $item -}}
+{{- end -}}
+{{- $feed := dict "version" "https://jsonfeed.org/version/1.1" "title" site.Title "home_page_url" .Permalink "language" (site.Language.LanguageCode | default site.Language.Lang) "items" $items -}}
+{{- with .OutputFormats.Get "jsonfeed" -}}{{- $feed = merge $feed (dict "feed_url" .Permalink) -}}{{- end -}}
+{{- with site.Params.description -}}{{- $feed = merge $feed (dict "description" .) -}}{{- end -}}
+{{- $feed | jsonify (dict "indent" "  ") -}}

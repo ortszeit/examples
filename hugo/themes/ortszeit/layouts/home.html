@@ -1,0 +1,12 @@
+{{- /* The start page: the newest posts, like the hosted blog (25, then a link to the archive). */ -}}
+{{ define "main" }}
+  {{- $posts := partial "ortszeit/posts.html" . -}}
+  {{- range first 25 $posts }}
+    {{ partial "ortszeit/post-unit.html" (dict "page" . "detail" false) }}
+  {{- else }}
+    <p class="meta">{{ i18n "nothing" }}</p>
+  {{- end }}
+  {{- if gt (len $posts) 25 }}
+    {{- with site.GetPage "/archive" }}<p class="meta"><a href="{{ .RelPermalink }}">{{ i18n "every_post" }} →</a></p>{{ end }}
+  {{- end }}
+{{ end }}

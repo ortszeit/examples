@@ -5,3 +5,4 @@ hugo/public/
 hugo/resources/
 .hugo_build.lock
 .DS_Store
+mysite/

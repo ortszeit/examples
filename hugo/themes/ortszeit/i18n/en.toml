@@ -1,0 +1,25 @@
+archive = "Archive"
+trips = "Trips"
+feed = "Feed"
+imprint = "Imprint"
+ongoing = "ongoing"
+every_post = "Every post"
+nothing = "Nothing published here yet."
+nothing_trip = "Nothing published on this trip yet."
+not_found = "This page does not exist."
+back_home = "Back to the start page"
+place_names = "Place names"
+built_with = "Built with {{ .hugo }}, imported from {{ .ortszeit }}"
+# Dates. Placeholders: .day .month .year
+day_month = "{{ .day }} {{ .month }}"
+long_date = "{{ .day }} {{ .month }} {{ .year }}"
+
+[posts]
+one = "{{ .Count }} post"
+other = "{{ .Count }} posts"
+
+[month_short]
+other = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
+
+[month_long]
+other = "January|February|March|April|May|June|July|August|September|October|November|December"

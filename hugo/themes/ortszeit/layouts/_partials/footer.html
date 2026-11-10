@@ -1,0 +1,19 @@
+{{- /*
+  The imprint when the blog has one, a quiet note on how the site was made,
+  and the GeoNames credit (CC BY 4.0) when a shown place name came from it.
+*/ -}}
+<footer class="site-footer">
+  {{- $parts := slice -}}
+  {{- with site.GetPage "/impressum" -}}{{- $parts = $parts | append (printf "<a href=\"%s\">%s</a>" .RelPermalink .Title) -}}{{- end -}}
+  {{- $hugo := `<a href="https://gohugo.io/">Hugo</a>` -}}
+  {{- $ortszeit := `<a href="https://ortszeit.app/docs/portable-format/">Ortszeit</a>` -}}
+  {{- $parts = $parts | append (i18n "built_with" (dict "hugo" $hugo "ortszeit" $ortszeit)) -}}
+  <p class="meta">{{ delimit $parts " · " | safeHTML }}</p>
+  {{- $geonames := false -}}
+  {{- range site.RegularPages -}}
+    {{- if and .Params.place.geonames (partial "ortszeit/settings.html" .).place -}}{{- $geonames = true -}}{{- end -}}
+  {{- end -}}
+  {{- if $geonames -}}
+  <p class="meta">{{ i18n "place_names" }}: <a href="https://www.geonames.org/">GeoNames</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)</p>
+  {{- end -}}
+</footer>

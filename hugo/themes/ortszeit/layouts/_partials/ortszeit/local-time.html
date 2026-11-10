@@ -1,0 +1,17 @@
+{{- /*
+  The Ortszeit of a page: its date on the wall clock where it was written.
+
+  The date in front matter already carries the local offset, but the zone in
+  params.time_zone is the truth (offsets change with summer time), so the
+  date is converted explicitly. Without a zone, or with one Hugo does not
+  know, the date stays as written and no clock time is shown.
+
+  Usage: {{ $t := partial "ortszeit/local-time.html" . }}
+*/ -}}
+{{- $t := .Date -}}
+{{- with .Params.time_zone -}}
+  {{- with try (time.In . $t) -}}
+    {{- if not .Err -}}{{- $t = .Value -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $t -}}

@@ -1,0 +1,6 @@
+{{- /*
+  Every listed post, newest first. Posts are pages of type "post" (the trip
+  sections set it for their pages through cascade). Drafts, and unlisted posts
+  (build.list: never), are not in site.RegularPages.
+*/ -}}
+{{- return (where site.RegularPages "Type" "post").ByDate.Reverse -}}

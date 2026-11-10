@@ -1,0 +1,24 @@
+# Theme defaults. Hugo merges these under the project's hugo.toml, so a
+# setting there always wins.
+
+# JSON Feed 1.1 next to RSS, at the hosted blog's address (/feed.json).
+[mediaTypes."application/feed+json"]
+  suffixes = ["json"]
+
+[outputFormats.jsonfeed]
+  mediaType = "application/feed+json"
+  baseName = "feed"
+  isPlainText = true
+  rel = "alternate"
+
+# RSS at /feed.xml instead of Hugo's /index.xml.
+[outputFormats.rss]
+  baseName = "feed"
+
+[params.display]
+  location = "place"  # hidden | place | coordinates
+  time = true         # show the local clock time next to the date
+
+[module.hugoVersion]
+  min = "0.146.0"
+  extended = true  # WebP renditions

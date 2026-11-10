@@ -1,0 +1,26 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if or .IsHome (eq .Kind "404") }}{{ site.Title }}{{ else }}{{ partial "ortszeit/label.html" . }} · {{ site.Title }}{{ end }}</title>
+{{- with site.Params.description }}
+<meta name="description" content="{{ . }}">
+{{- end }}
+{{- if or (eq .Kind "404") (and .Params.visibility (ne .Params.visibility "public")) }}
+<meta name="robots" content="noindex">
+{{- else }}
+<link rel="canonical" href="{{ .Permalink }}">
+{{- end }}
+{{- with site.Home.OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+{{- end }}
+{{- with site.Home.OutputFormats.Get "jsonfeed" }}
+<link rel="alternate" type="application/feed+json" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+{{- end }}
+{{- /*
+  One stylesheet: the theme's, then assets/css/custom.css (yours, or the
+  custom CSS from your Ortszeit export), concatenated, minified and
+  fingerprinted by Hugo Pipes. No web fonts, nothing from other sites.
+*/}}
+{{- $css := slice (resources.Get "css/main.css") }}
+{{- with resources.Get "css/custom.css" }}{{ $css = $css | append . }}{{ end }}
+{{- $css = $css | resources.Concat "css/ortszeit.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

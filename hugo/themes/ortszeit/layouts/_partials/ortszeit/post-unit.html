@@ -1,0 +1,15 @@
+{{- /*
+  One post as the theme shows it everywhere: meta line, title (optional),
+  body, photos. On its own page (detail) the title is an h1 and not a link.
+
+  Usage: {{ partial "ortszeit/post-unit.html" (dict "page" . "detail" false) }}
+*/ -}}
+{{- $p := .page -}}
+<article class="post">
+  {{- partial "ortszeit/meta.html" (dict "page" $p "linked" (not .detail)) -}}
+  {{- with $p.Title -}}
+    {{- if $.detail -}}<h1>{{ . }}</h1>{{- else -}}<h2><a href="{{ $p.RelPermalink }}">{{ . }}</a></h2>{{- end -}}
+  {{- end -}}
+  <div class="body">{{ $p.Content }}</div>
+  {{- partial "ortszeit/photos.html" $p -}}
+</article>

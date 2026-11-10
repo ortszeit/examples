@@ -1,0 +1,14 @@
+{{- /* A post (type "post") or a plain page such as the imprint. */ -}}
+{{ define "main" }}
+  {{- if eq .Type "post" }}
+    {{ partial "ortszeit/post-unit.html" (dict "page" . "detail" true) }}
+    {{- with .Parent }}{{ if eq .Type "trip" }}
+    <p class="meta back"><a href="{{ .RelPermalink }}">← {{ .Title }}</a></p>
+    {{- end }}{{ end }}
+  {{- else }}
+    <article class="post">
+      <h1>{{ .Title }}</h1>
+      <div class="body">{{ .Content }}</div>
+    </article>
+  {{- end }}
+{{ end }}

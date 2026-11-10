@@ -1,0 +1,20 @@
+{{- /*
+  A trip (type "trip"): oldest post first, along the route rule — the
+  theme's signature element (spec §5). Scrolling a trip reads as travelling
+  the route. Any other section gets a plain list.
+*/ -}}
+{{ define "main" }}
+  {{- $posts := .RegularPages.ByDate }}
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{- if eq .Type "trip" }}
+  <p class="meta">{{ partial "ortszeit/trip-range.html" (dict "trip" . "count" (len $posts)) }}</p>
+  {{- end }}
+  {{- .Content }}
+  <div class="route">
+    {{- range $posts }}
+    {{ partial "ortszeit/post-unit.html" (dict "page" . "detail" false) }}
+    {{- else }}
+    <p class="meta">{{ i18n "nothing_trip" }}</p>
+    {{- end }}
+  </div>
+{{ end }}
