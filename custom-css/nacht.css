@@ -1,0 +1,33 @@
+/* Nacht: the blog after dark, whatever the reader's system says.
+   Deep blue paper, moonlit text, lamp-yellow links and route dots that
+   glow a little. Photos are dimmed slightly and brighten on hover.
+   Ortszeit custom CSS: paste it under Settings > Custom CSS. */
+
+:root {
+  color-scheme: dark;
+  --paper: #0B1320;
+  --ink: #DCE3EC;
+  --muted: #8796AA;
+  --rule: #1C2A3E;
+  --ocean: #7DB8D9;
+  --accent: #F2C14E;
+  --accent-strong: #F2C14E;
+  --accent-dim: #3B3423;
+  --on-accent: #0B1320;
+}
+/* The theme switches its tokens for dark systems; these come later and win
+   in both cases, so the page is the same night in light mode too. */
+
+body { background: radial-gradient(ellipse at top, #13213A 0%, var(--paper) 32rem) no-repeat, var(--paper); }
+.site h1, .site .title { letter-spacing: .01em; }
+.site h1 a, .site .title a { color: #F4F1E8; }
+.bio { color: var(--muted); }
+
+.post h1, .post h2, main > h2:not(.meta) { color: #F4F1E8; }
+.body blockquote { border-left-color: var(--accent); color: var(--ink); font-style: italic; }
+
+.photos.solo img, .strip img { filter: brightness(.86) saturate(.9); transition: filter .3s; }
+.photos.solo img:hover, .strip img:hover { filter: none; }
+
+.route .post::before { box-shadow: 0 0 0 3px var(--paper), 0 0 12px 2px rgba(242, 193, 78, .55); }
+.site-footer .meta a { color: var(--muted); }

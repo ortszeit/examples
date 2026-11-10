@@ -1,0 +1,45 @@
+/* Mono: plain text, nothing else.
+   Monospace throughout, black on white (white on black in dark mode),
+   underlined links, the headings marked like Markdown, no rounded corners,
+   no colour. A quiet sheet to start your own from.
+   Ortszeit custom CSS: paste it under Settings > Custom CSS. */
+
+:root {
+  --paper: #FFFFFF;
+  --ink: #111111;
+  --muted: #6B6B6B;
+  --rule: #E2E2E2;
+  --accent: #111111;
+  --accent-strong: #111111;
+  --accent-dim: #BDBDBD;
+  --font-body: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-meta: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --measure: 40rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0E0E0E;
+    --ink: #E6E6E6;
+    --muted: #8C8C8C;
+    --rule: #262626;
+    --accent: #E6E6E6;
+    --accent-strong: #E6E6E6;
+    --accent-dim: #5A5A5A;
+  }
+}
+
+body { font-size: 15px; line-height: 1.7; }
+a { border-bottom: 0; text-decoration: underline; text-decoration-color: var(--accent-dim); text-underline-offset: .2em; }
+a:hover, a:focus-visible { text-decoration-color: var(--ink); }
+
+.meta { text-transform: none; letter-spacing: 0; }
+.site h1, .site .title, .post h1, .post h2, main > h2:not(.meta) { font-size: 1rem; font-weight: 700; letter-spacing: 0; }
+.site h1::before, .site .title::before { content: "# "; color: var(--muted); }
+.post h1::before, .post h2::before, main > h2:not(.meta)::before { content: "## "; color: var(--muted); }
+
+.body blockquote { border-left: 0; padding-left: 0; }
+.body blockquote::before { content: "> "; float: left; margin-right: .5ch; }
+.body ul { list-style: "- "; }
+
+.photos.solo img, .strip img { border-radius: 0; }
+.route .post::before { border-radius: 0; width: 5px; height: 5px; left: calc(-1.5rem - 3px); }

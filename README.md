@@ -12,8 +12,9 @@ an export into a website you host yourself.
 | [`ssg/`](ssg/) | only [uv](https://docs.astral.sh/uv/) | one readable Python script that builds a complete static blog |
 | [`hugo/`](hugo/) | [Hugo](https://gohugo.io/) and uv | a Hugo site with an Ortszeit-like theme that you keep developing with Hugo |
 | [`astro/`](astro/) | [Node.js](https://nodejs.org/) with npm, and uv | an Astro project with content collections and the Ortszeit look that you keep developing with Astro |
+| [`custom-css/`](custom-css/) | a paid Ortszeit blog | four stylesheets to paste into *Custom CSS* in Studio, with the classes and tokens to target |
 
-All three read the same small export in [`sample-export/`](sample-export/), so you
+The three generators read the same small export in [`sample-export/`](sample-export/), so you
 can try them before exporting your own blog:
 
 ```sh

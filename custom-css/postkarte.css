@@ -1,0 +1,59 @@
+/* Postkarte: a card home from the trip.
+   Warm cream paper, brown ink, Palatino, an airmail stripe across the top,
+   the place in a postmark ring and photos as prints with white borders,
+   set down slightly crooked. Light and dark.
+   Ortszeit custom CSS: paste it under Settings > Custom CSS. */
+
+:root {
+  --paper: #FBF1E1;
+  --ink: #3B2A1E;
+  --muted: #7E654F;
+  --rule: #E7D2B4;
+  --ocean: #1F5673;
+  --accent: #D9822B;
+  --accent-strong: #A04E14;
+  --accent-dim: #F1D9BA;
+  --font-body: "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", Georgia, serif;
+  --measure: 35rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #221A14;
+    --ink: #F1E4D0;
+    --muted: #B79D82;
+    --rule: #3A2D22;
+    --ocean: #7DB8D9;
+    --accent: #E69A4C;
+    --accent-strong: #F0AE6A;
+    --accent-dim: #4A3725;
+  }
+}
+
+/* Airmail stripe */
+body {
+  border-top: 8px solid;
+  border-image: repeating-linear-gradient(-45deg, #C8102E 0 12px, var(--paper) 12px 18px, #1F5673 18px 30px, var(--paper) 30px 36px) 8;
+}
+
+.site h1, .site .title, .post h1, .post h2, main > h2:not(.meta) { font-style: italic; font-weight: 600; }
+.post { border-top: 1px dashed var(--rule); }
+
+/* The place as a postmark */
+.place {
+  display: inline-block; padding: .05rem .55rem; margin-right: .15rem;
+  border: 1.5px solid var(--accent-strong); border-radius: 999px; color: var(--accent-strong);
+  transform: rotate(-2deg);
+}
+
+/* Photos as prints */
+.photos.solo img {
+  border: .55rem solid #FFFDF8; border-bottom-width: 1.6rem; border-radius: 1px;
+  box-shadow: 0 2px 10px rgba(59, 42, 30, .22); transform: rotate(-.8deg);
+}
+.strip { padding: .6rem .3rem 1rem; }
+.strip img { border: .3rem solid #FFFDF8; border-radius: 1px; box-shadow: 0 1px 6px rgba(59, 42, 30, .25); }
+.strip > :nth-child(odd) img { transform: rotate(-1.5deg); }
+.strip > :nth-child(even) img { transform: rotate(1.2deg); }
+
+.body blockquote { border-left: 2px solid var(--accent); font-style: italic; }
+.route .post::before { background: var(--accent-strong); }

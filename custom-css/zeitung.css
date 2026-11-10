@@ -1,0 +1,60 @@
+/* Zeitung: the blog as a newspaper page.
+   A centred masthead between double rules, Times for everything, small caps
+   in the meta line, justified columns of text, a drop cap at the start of
+   every post and black-and-white photos. Light and dark.
+   Ortszeit custom CSS: paste it under Settings > Custom CSS. */
+
+:root {
+  --paper: #F7F4EC;
+  --ink: #1A1A1A;
+  --muted: #57534C;
+  --rule: #1A1A1A;
+  --accent: #1A1A1A;
+  --accent-strong: #8A1C1C;
+  --accent-dim: #D6CEBD;
+  --font-body: "Times New Roman", Times, "Liberation Serif", Georgia, serif;
+  --font-meta: Georgia, "Times New Roman", serif;
+  --measure: 38rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1B1A17;
+    --ink: #ECE6D8;
+    --muted: #A9A193;
+    --rule: #ECE6D8;
+    --accent: #ECE6D8;
+    --accent-strong: #F0A8A0;
+    --accent-dim: #45403A;
+  }
+}
+
+/* The masthead */
+.site { text-align: center; padding: 2.5rem 0 1rem; border-bottom: 3px double var(--rule); margin-bottom: 1.75rem; }
+.site h1, .site .title { font-size: 2.6rem; line-height: 1.05; font-weight: 700; letter-spacing: -.02em; }
+.bio { font-style: italic; }
+.site nav { border-top: 1px solid var(--rule); margin-top: 1rem; padding-top: .5rem; }
+.site nav a { margin: 0 .75rem; }
+
+/* The meta line in small caps instead of monospace capitals */
+.meta { font-variant: small-caps; text-transform: lowercase; font-size: 16px; letter-spacing: .05em; }
+.place { font-weight: 700; }
+
+/* Articles */
+.post { border-top: 1px solid var(--rule); }
+.post h1, .post h2, main > h2:not(.meta) { font-size: 1.8rem; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
+.body p { text-align: justify; hyphens: auto; }
+.body > p:first-child::first-letter {
+  float: left; font-size: 3.3em; line-height: .85; font-weight: 700; padding: .06em .08em 0 0;
+}
+.body blockquote {
+  border-left: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: .5rem 0; text-align: center; font-style: italic; font-size: 1.15em; color: var(--ink);
+}
+
+/* Photos as printed: no corners, no colour */
+.photos.solo img, .strip img { border-radius: 0; filter: grayscale(1) contrast(1.08); }
+
+/* The route as a column rule, square markers */
+.route .post::before { border-radius: 0; background: var(--ink); }
+
+.site-footer { border-top: 3px double var(--rule); text-align: center; }
