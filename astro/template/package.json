@@ -11,9 +11,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "0.4.7",
+    "@astrojs/markdown-satteri": "0.4.5",
     "@astrojs/rss": "4.0.19",
-    "astro": "7.4.8"
+    "astro": "7.4.2"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
