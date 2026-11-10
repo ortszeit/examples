@@ -416,26 +416,29 @@ def make_photos(post: Post, blog: Blog, out: Path, root: str, include_originals:
 # ---------------------------------------------------------------------------
 #
 # Templates are plain f-strings; ``e()`` escapes everything that came from the
-# archive. The CSS is the hosted theme's (spec §5), trimmed to what static
-# pages need: no lightbox script, no map.
+# archive. The CSS is the hosted theme's (spec §5, palette "Koralle & Ozean"),
+# trimmed to what static pages need: no lightbox script, no map. Coral
+# (--accent) is for the route dots only; links and focus use --accent-strong
+# #CA4224, which reaches WCAG AA on the paper (4.63:1) — coral itself does not.
 
 e = html.escape
 
 CSS = """*,*::before,*::after{box-sizing:border-box}
-:root{--paper:#F7F8F7;--ink:#16181C;--muted:#6A7077;--rule:#E2E5E3;--accent:#0E6E5C;--accent-dim:#D6E5E0;
+:root{--paper:#FFF8F3;--ink:#16181C;--muted:#69625D;--rule:#F2E2D8;--ocean:#1F5673;
+--accent:#FF6B4A;--accent-strong:#CA4224;--accent-dim:#FFE5DA;
 --font-body:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
 --font-meta:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--measure:34rem}
-@media (prefers-color-scheme:dark){:root{--paper:#14161A;--ink:#E8EAE8;--muted:#92999B;--rule:#262A2F;
---accent:#4FB79C;--accent-dim:#1E3A34}}
+@media (prefers-color-scheme:dark){:root{--paper:#101B22;--ink:#ECE7E3;--muted:#9BA8B0;--rule:#1E2E38;--ocean:#7DB8D9;
+--accent:#FF7E61;--accent-strong:#FF7E61;--accent-dim:#3A2621}}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:18px;line-height:1.65}
-a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-dim)}
-a:hover,a:focus-visible{border-bottom-color:var(--accent)}
+a{color:var(--accent-strong);text-decoration:none;border-bottom:1px solid var(--accent-dim)}
+a:hover,a:focus-visible{border-bottom-color:var(--accent-strong)}
 img{max-width:100%;height:auto;display:block}
 .wrap{max-width:var(--measure);margin:0 auto;padding:0 1.25rem}
 .meta{font-family:var(--font-meta);font-size:13px;letter-spacing:.02em;line-height:1.5;color:var(--muted);
 text-transform:uppercase;margin:0}
-.meta a{color:var(--muted);border-bottom-color:var(--rule)}.meta a:hover{color:var(--accent)}
+.meta a{color:var(--muted);border-bottom-color:var(--rule)}.meta a:hover{color:var(--accent-strong)}
 .site{padding:3rem 0 1.25rem}.site h1{font-size:1.35rem;line-height:1.3;margin:0;font-weight:600}
 .site h1 a{color:var(--ink);border:0}.bio{color:var(--muted);font-size:1rem;margin:.5rem 0 0}
 .site nav{margin-top:1.25rem}.site nav a{margin-right:1.25rem;border:0}
