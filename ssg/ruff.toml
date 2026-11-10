@@ -1,0 +1,7 @@
+# The example lives outside the portal, so it carries its own settings.
+line-length = 120
+target-version = "py312"
+
+[lint.isort]
+# make_sample.py runs inside the portal, whose own code lives in apps/.
+known-first-party = ["apps"]

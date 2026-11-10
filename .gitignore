@@ -1,0 +1,7 @@
+__pycache__/
+.venv/
+site/
+hugo/public/
+hugo/resources/
+.hugo_build.lock
+.DS_Store

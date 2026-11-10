@@ -1,0 +1,134 @@
+{
+  "ortszeit_schema": 1,
+  "blog": {
+    "ortszeit_schema": 1,
+    "title": "Unterwegs mit Lena",
+    "bio": "Kurze Notizen von unterwegs, in der Zeit des Ortes geschrieben.",
+    "subdomain": "lena",
+    "custom_domain": null,
+    "theme": "ortszeit",
+    "custom_css": "",
+    "display": {
+      "location": "coordinates",
+      "time": true
+    },
+    "imprint": "Lena Beispiel\n\nMusterweg 1, 12345 Musterstadt\n\nE-Mail: lena@example.com",
+    "exported_at": "2026-11-10T07:06:20.656642+00:00"
+  },
+  "posts": [
+    {
+      "path": "trips/venedig-2026/2026-10-03-ankunft-am-bahnhof.md",
+      "slug": "ankunft-am-bahnhof",
+      "trip": "venedig-2026",
+      "title": "Ankunft am Bahnhof",
+      "date": "2026-10-03T16:40:00+02:00",
+      "time_zone": "Europe/Rome",
+      "draft": false,
+      "place": {
+        "name": "Venezia Santa Lucia",
+        "osm": "node/1932175437",
+        "lat": 45.4412,
+        "lon": 12.321
+      },
+      "hide_location": false,
+      "visibility": "public",
+      "media": [
+        {
+          "file": "media/IMG_4100.jpg",
+          "taken_at": null,
+          "alt": "Der Canal Grande vor dem Bahnhof"
+        }
+      ],
+      "body": "Aus dem Zug, die Treppe hinunter, und dann ist da einfach **Wasser**, wo sonst ein Bahnhofsvorplatz wäre.\n\nDas Vaporetto Linie 1 fährt alle zwölf Minuten."
+    },
+    {
+      "path": "trips/venedig-2026/2026-10-04-2026-10-04.md",
+      "slug": "2026-10-04",
+      "trip": "venedig-2026",
+      "title": null,
+      "date": "2026-10-04T00:20:00+02:00",
+      "time_zone": "Europe/Rome",
+      "draft": false,
+      "place": {
+        "name": "Ponte di Rialto",
+        "osm": "way/25058567",
+        "lat": 45.438,
+        "lon": 12.3359
+      },
+      "hide_location": false,
+      "visibility": "public",
+      "media": [
+        {
+          "file": "media/IMG_4101.jpg",
+          "taken_at": null,
+          "alt": "Rialtobrücke bei Nacht"
+        },
+        {
+          "file": "media/IMG_4102.jpg",
+          "taken_at": null,
+          "alt": null
+        }
+      ],
+      "body": "Kurz nach Mitternacht an der Rialtobrücke. Niemand mehr da außer zwei Gondolieri, die über Fußball streiten.\n\n> Domani piove.\n\nSagt der eine. Mal sehen."
+    },
+    {
+      "path": "trips/venedig-2026/2026-10-05-burano.md",
+      "slug": "burano",
+      "trip": "venedig-2026",
+      "title": "Burano",
+      "date": "2026-10-05T11:05:00+02:00",
+      "time_zone": "Europe/Rome",
+      "draft": false,
+      "place": {
+        "name": "Burano",
+        "osm": null,
+        "lat": 45.4853,
+        "lon": 12.4167,
+        "geonames": 3181554
+      },
+      "hide_location": true,
+      "visibility": "public",
+      "media": [],
+      "body": "Wo genau wir gewohnt haben, bleibt hier weg. Nur so viel:\n\n- bunte Häuser\n- sehr wenig Schatten\n- *der beste* Fritto misto der Reise"
+    },
+    {
+      "path": "trips/familie/2026-09-13-omas-geburtstag.md",
+      "slug": "omas-geburtstag",
+      "trip": "familie",
+      "title": "Omas Geburtstag",
+      "date": "2026-09-13T19:00:00+02:00",
+      "time_zone": "Europe/Berlin",
+      "draft": false,
+      "hide_location": false,
+      "visibility": "password",
+      "media": [],
+      "body": "Nur für die Familie."
+    },
+    {
+      "path": "posts/2026-10-08-wieder-zu-hause.md",
+      "slug": "wieder-zu-hause",
+      "trip": null,
+      "title": "Wieder zu Hause",
+      "date": "2026-10-08T07:30:00+00:00",
+      "time_zone": null,
+      "draft": false,
+      "hide_location": false,
+      "visibility": "public",
+      "media": [],
+      "body": "Kein Ort, keine Zeitzone — deshalb steht hier nur ein Datum, keine Uhrzeit. Mehr dazu im [Format](https://ortszeit.app/docs/portable-format/)."
+    },
+    {
+      "path": "posts/2026-11-10-entwurf-packliste.md",
+      "slug": "entwurf-packliste",
+      "trip": null,
+      "title": "Entwurf: Packliste",
+      "date": "2026-11-10T07:06:20.652532+00:00",
+      "time_zone": null,
+      "draft": true,
+      "hide_location": false,
+      "visibility": "public",
+      "media": [],
+      "body": "Noch nicht fertig."
+    }
+  ]
+}

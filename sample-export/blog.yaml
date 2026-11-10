@@ -1,0 +1,18 @@
+ortszeit_schema: 1
+title: Unterwegs mit Lena
+bio: Kurze Notizen von unterwegs, in der Zeit des Ortes geschrieben.
+subdomain: lena
+custom_domain: null
+theme: ortszeit
+custom_css: ''
+display:
+  location: coordinates
+  time: true
+imprint: 'Lena Beispiel
+
+
+  Musterweg 1, 12345 Musterstadt
+
+
+  E-Mail: lena@example.com'
+exported_at: 2026-11-10T07:06:20.656649+00:00
