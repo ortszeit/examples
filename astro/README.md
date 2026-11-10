@@ -34,8 +34,8 @@ uv run astro/ortszeit_to_astro.py ~/Downloads/ortszeit-export.zip -o myblog \
 | `--base-url` | The public address, for the feed, the sitemap and canonical links. If you leave it out, the importer uses `https://<custom_domain>/` when the export has one, and `http://localhost:4321/` otherwise. It is only written on the first import, so change it later in `astro.config.mjs`. |
 | `--include-private` | Also imports password-protected trips and posts, as **unlisted** pages. **They are not protected.** The export never contains the password. |
 
-The versions are pinned exactly in `package.json`: Astro 7.4.8,
-`@astrojs/rss` 4.0.19, `@astrojs/markdown-satteri` 0.4.7 (Astro's Markdown
+The versions are pinned exactly in `package.json`: Astro 7.4.2,
+`@astrojs/rss` 4.0.19, `@astrojs/markdown-satteri` 0.4.5 (Astro's Markdown
 processor, see *What it respects*), and for `npm run check`
 `@astrojs/check` 0.9.12 with TypeScript 6.0.3. Update them when you want to,
 with `npx @astrojs/upgrade`.
