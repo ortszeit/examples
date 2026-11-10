@@ -1,0 +1,25 @@
+---
+/*
+ * One post as the site shows it everywhere: meta line, title (optional),
+ * text, photos. On its own page (detail) the title is an h1 and no link.
+ */
+import { render } from 'astro:content';
+import { href, postPath, type Post } from '../lib/ortszeit';
+import Meta from './Meta.astro';
+import Photos from './Photos.astro';
+
+interface Props {
+  post: Post;
+  detail?: boolean;
+}
+const { post, detail = false } = Astro.props;
+const { Content } = await render(post);
+const title = post.data.title;
+---
+
+<article class="post">
+  <Meta post={post} linked={!detail} />
+  {title && (detail ? <h1>{title}</h1> : <h2><a href={href(postPath(post))}>{title}</a></h2>)}
+  <div class="body"><Content /></div>
+  <Photos photos={post.data.photos} />
+</article>

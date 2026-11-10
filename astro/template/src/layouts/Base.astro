@@ -1,0 +1,75 @@
+---
+/*
+ * Every page: head, the blog's title and bio, the navigation, the footer.
+ * One stylesheet (the Ortszeit look, then custom.css), no JavaScript, no web
+ * fonts, nothing loaded from other sites.
+ */
+import { getEntry } from 'astro:content';
+import { t } from '../i18n';
+import { href, listedPosts, settings } from '../lib/ortszeit';
+import { site } from '../site.config';
+import '../styles/ortszeit.css';
+import '../styles/custom.css';
+
+interface Props {
+  title?: string; // shown as "<title> · <blog title>"; the blog title alone when absent
+  noindex?: boolean; // unlisted pages and the 404 page
+  home?: boolean; // the blog title is the page's h1
+  route?: boolean; // a trip page, a little wider for the route rule
+}
+const { title, noindex = false, home = false, route = false } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imprint = await getEntry('pages', 'impressum');
+// GeoNames place names are CC BY 4.0: credit them when the site shows one.
+const geonames = (await listedPosts()).some((p) => p.data.place?.geonames && settings(p).place);
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} · ${site.title}` : site.title}</title>
+    {site.description && <meta name="description" content={site.description} />}
+    {noindex ? <meta name="robots" content="noindex" /> : canonical && <link rel="canonical" href={canonical} />}
+    <link rel="alternate" type="application/rss+xml" title={site.title} href={href('/feed.xml')} />
+  </head>
+  <body>
+    <div class:list={['wrap', { 'route-wrap': route }]}>
+      <header class="site">
+        {
+          home ? (
+            <h1 class="title"><a href={href('/')}>{site.title}</a></h1>
+          ) : (
+            <p class="title"><a href={href('/')}>{site.title}</a></p>
+          )
+        }
+        {site.description && <p class="bio">{site.description}</p>}
+        <nav class="meta">
+          <a href={href('/archive/')}>{t.archive}</a>
+          {site.display.location !== 'hidden' && <a href={href('/places/')}>{t.places}</a>}
+          <a href={href('/feed.xml')}>{t.feed}</a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <p class="meta">
+          {imprint && <><a href={href(`/${imprint.id}/`)}>{imprint.data.title}</a> · </>}
+          {t.builtWith[0]}<a href="https://astro.build/">Astro</a>{t.builtWith[1]}<a
+            href="https://ortszeit.app/docs/portable-format/">Ortszeit</a
+          >{t.builtWith[2]}
+        </p>
+        {
+          geonames && (
+            <p class="meta">
+              {t.placeNames}: <a href="https://www.geonames.org/">GeoNames</a>
+              (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)
+            </p>
+          )
+        }
+      </footer>
+    </div>
+  </body>
+</html>

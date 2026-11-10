@@ -1,0 +1,15 @@
+---
+/* The start page: the newest posts, like the hosted blog (25, then a link to the archive). */
+import PostUnit from '../components/PostUnit.astro';
+import { t } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { href, listedPosts } from '../lib/ortszeit';
+
+const posts = await listedPosts();
+---
+
+<Base home>
+  {posts.slice(0, 25).map((post) => <PostUnit post={post} />)}
+  {posts.length === 0 && <p class="meta">{t.nothing}</p>}
+  {posts.length > 25 && <p class="meta"><a href={href('/archive/')}>{t.everyPost} →</a></p>}
+</Base>

@@ -1,0 +1,10 @@
+---
+import { t } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/ortszeit';
+---
+
+<Base noindex>
+  <p class="meta">{t.notFound}</p>
+  <p class="meta"><a href={href('/')}>{t.backHome}</a></p>
+</Base>

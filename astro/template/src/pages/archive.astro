@@ -1,0 +1,57 @@
+---
+/* The archive: the trips, then every listed post by year (in local time). */
+import { getCollection } from 'astro:content';
+import { t } from '../i18n';
+import Base from '../layouts/Base.astro';
+import {
+  calendarDay, clockTime, dayMonth, href, label, listedPosts, postPath, postTime, settings, tripPath, type Post,
+} from '../lib/ortszeit';
+
+const trips = (await getCollection('trips', ({ data }) => data.visibility === 'public')).sort(
+  (a, b) => (b.data.started_on?.valueOf() ?? 0) - (a.data.started_on?.valueOf() ?? 0),
+);
+const years = new Map<number, Post[]>();
+for (const post of await listedPosts()) {
+  const year = postTime(post).year;
+  years.set(year, [...(years.get(year) ?? []), post]);
+}
+function when(post: Post): string {
+  const local = postTime(post);
+  return settings(post).clock ? `${dayMonth(local)} · ${clockTime(local)}` : dayMonth(local);
+}
+---
+
+<Base title={t.archive}>
+  <h1 class="meta">{t.archive}</h1>
+  {
+    trips.length > 0 && (
+      <>
+        <h2 class="meta year">{t.trips}</h2>
+        <ul class="stack">
+          {trips.map((trip) => (
+            <li>
+              <span class="meta when">{trip.data.started_on && calendarDay(trip.data.started_on).year}</span>
+              <a href={href(tripPath(trip))}>{trip.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+  {
+    [...years].map(([year, posts]) => (
+      <>
+        <h2 class="meta year">{year}</h2>
+        <ul class="stack clocked">
+          {posts.map((post) => (
+            <li>
+              <span class="meta when">{when(post)}</span>
+              <a href={href(postPath(post))}>{label(post)}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+  {trips.length === 0 && years.size === 0 && <p class="meta">{t.nothing}</p>}
+</Base>

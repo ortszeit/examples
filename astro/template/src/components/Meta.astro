@@ -1,0 +1,26 @@
+---
+/*
+ * The signature line above every post (spec §5):
+ * PLACE · DATE · TIME · COORDINATES, in monospace, in the post's Ortszeit.
+ * Only what exists and what the blog chose to show is rendered.
+ */
+import { t } from '../i18n';
+import { clockTime, dayMonth, formatCoordinates, href, postPath, postTime, settings, stamp, type Post } from '../lib/ortszeit';
+
+interface Props {
+  post: Post;
+  linked: boolean; // the date links to the post's page
+}
+const { post, linked } = Astro.props;
+const local = postTime(post);
+const show = settings(post);
+const when = show.clock ? `${dayMonth(local)} · ${clockTime(local)}` : dayMonth(local);
+const datetime = stamp(local, show.clock);
+---
+
+<p class="meta">
+  {show.place && <><span class="place">{post.data.place?.name}</span> · </>}
+  {linked ? <a href={href(postPath(post))}><time datetime={datetime}>{when}</time></a> : <time datetime={datetime}>{when}</time>}
+  {show.coordinates && post.data.coordinates && ` · ${formatCoordinates(post.data.coordinates)}`}
+  {post.data.draft && <> · <span class="draft">{t.draft}</span></>}
+</p>

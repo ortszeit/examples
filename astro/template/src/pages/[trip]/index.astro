@@ -1,0 +1,28 @@
+---
+/*
+ * A trip: oldest post first, along the route rule, the look's signature
+ * element (spec §5). Scrolling a trip reads as travelling the route.
+ */
+import { getCollection } from 'astro:content';
+import PostUnit from '../../components/PostUnit.astro';
+import { t } from '../../i18n';
+import Base from '../../layouts/Base.astro';
+import { tripPosts, tripRange, type Trip } from '../../lib/ortszeit';
+
+export async function getStaticPaths() {
+  const trips = await getCollection('trips');
+  return trips.map((trip) => ({ params: { trip: trip.id }, props: { trip } }));
+}
+
+const { trip } = Astro.props as { trip: Trip };
+const posts = await tripPosts(trip);
+---
+
+<Base title={trip.data.title} noindex={trip.data.visibility !== 'public'} route>
+  <h1 class="page-title">{trip.data.title}</h1>
+  <p class="meta">{tripRange(trip, posts.length)}</p>
+  <div class="route">
+    {posts.map((post) => <PostUnit post={post} />)}
+    {posts.length === 0 && <p class="meta">{t.nothingTrip}</p>}
+  </div>
+</Base>

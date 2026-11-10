@@ -1,0 +1,51 @@
+---
+/*
+ * Every place the blog shows, A to Z, with the posts written there. Posts
+ * with a hidden location, and blogs that hide places, add nothing here.
+ * The hosted blog draws a map; this page stays text, so it needs no
+ * JavaScript and no tiles from another site.
+ */
+import { t } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { dayMonth, formatCoordinates, href, label, listedPosts, postPath, postTime, settings, type Post } from '../lib/ortszeit';
+import { site } from '../site.config';
+
+const places = new Map<string, { coordinates?: string; posts: Post[] }>();
+for (const post of (await listedPosts()).reverse()) {
+  const show = settings(post);
+  const name = post.data.place?.name;
+  if (!show.place || !name) continue;
+  const entry = places.get(name) ?? { posts: [] };
+  if (show.coordinates && post.data.coordinates && !entry.coordinates) {
+    entry.coordinates = formatCoordinates(post.data.coordinates);
+  }
+  entry.posts.push(post);
+  places.set(name, entry);
+}
+const sorted = [...places].sort(([a], [b]) => a.localeCompare(b, site.lang));
+---
+
+<Base title={t.places}>
+  <h1 class="meta">{t.places}</h1>
+  <div class="places">
+    {
+      sorted.map(([name, { coordinates, posts }]) => (
+        <>
+          <h2 class="meta year">
+            {name}
+            {coordinates && <span class="coords">{coordinates}</span>}
+          </h2>
+          <ul class="stack">
+            {posts.map((post) => (
+              <li>
+                <span class="meta when">{dayMonth(postTime(post))}</span>
+                <a href={href(postPath(post))}>{label(post)}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))
+    }
+  </div>
+  {sorted.length === 0 && <p class="meta">{t.noPlaces}</p>}
+</Base>

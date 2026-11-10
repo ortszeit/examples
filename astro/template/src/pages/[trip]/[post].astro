@@ -1,0 +1,20 @@
+---
+/* A post's own page: /<trip>/<post>/, or /posts/<post>/ without a trip. */
+import { getEntry } from 'astro:content';
+import PostUnit from '../../components/PostUnit.astro';
+import Base from '../../layouts/Base.astro';
+import { allPosts, href, label, postSlug, tripOf, type Post } from '../../lib/ortszeit';
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return posts.map((post) => ({ params: { trip: tripOf(post), post: postSlug(post) }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const trip = post.data.trip ? await getEntry(post.data.trip) : undefined;
+---
+
+<Base title={label(post)} noindex={post.data.visibility !== 'public'}>
+  <PostUnit post={post} detail />
+  {trip && <p class="meta back"><a href={href(`/${trip.id}/`)}>← {trip.data.title}</a></p>}
+</Base>

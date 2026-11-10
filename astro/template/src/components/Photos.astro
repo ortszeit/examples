@@ -1,0 +1,55 @@
+---
+/*
+ * A post's photos, in order (spec §5): one photo runs the full measure at its
+ * natural aspect ratio; two or more become a snap-scrolling strip of square
+ * thumbnails. The hosted blog opens a lightbox there; this site has no
+ * JavaScript, so a photo links to its large rendition instead.
+ *
+ * astro:assets writes WebP at 400, 800 and 1600 px (never wider than the
+ * original). The renditions carry no EXIF, so no GPS data.
+ */
+import { getImage } from 'astro:assets';
+import type { Post } from '../lib/ortszeit';
+
+interface Props {
+  photos: Post['data']['photos'];
+}
+const WIDTHS = [400, 800, 1600];
+const shown = await Promise.all(
+  Astro.props.photos.map(async ({ file, alt }) => {
+    const top = Math.min(file.width, 1600);
+    const widths = [...WIDTHS.filter((w) => w < top), top];
+    const options = { src: file, format: 'webp', quality: 80 } as const;
+    const image = await getImage({ ...options, width: Math.min(top, 800), widths });
+    const large = await getImage({ ...options, width: top });
+    return { image, large, alt: alt ?? '' };
+  }),
+);
+---
+
+{
+  shown.length === 1 ? (
+    <div class="photos solo">
+      <a href={shown[0].large.src}>
+        <img
+          src={shown[0].image.src}
+          srcset={shown[0].image.srcSet.attribute}
+          sizes="(max-width: 36rem) 100vw, 34rem"
+          alt={shown[0].alt}
+          width={shown[0].image.attributes.width}
+          height={shown[0].image.attributes.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    </div>
+  ) : shown.length > 1 ? (
+    <div class="photos strip">
+      {shown.map(({ image, large, alt }) => (
+        <a href={large.src}>
+          <img src={image.src} srcset={image.srcSet.attribute} sizes="9rem" alt={alt} loading="lazy" decoding="async" />
+        </a>
+      ))}
+    </div>
+  ) : null
+}

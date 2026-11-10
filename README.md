@@ -4,20 +4,22 @@
 write there can be exported in an open, documented format, the
 [portable format](https://www.ortszeit.app/docs/portable-format/): Markdown with
 front matter, your photos, and a `blog.yaml`. The blog belongs to whoever writes
-it, and this repository shows what that means in practice: two small ways to turn
+it, and this repository shows what that means in practice: three small ways to turn
 an export into a website you host yourself.
 
 | Example | What you need | What you get |
 |---|---|---|
 | [`ssg/`](ssg/) | only [uv](https://docs.astral.sh/uv/) | one readable Python script that builds a complete static blog |
 | [`hugo/`](hugo/) | [Hugo](https://gohugo.io/) and uv | a Hugo site with an Ortszeit-like theme that you keep developing with Hugo |
+| [`astro/`](astro/) | [Node.js](https://nodejs.org/) with npm, and uv | an Astro project with content collections and the Ortszeit look that you keep developing with Astro |
 
-Both read the same small export in [`sample-export/`](sample-export/), so you
+All three read the same small export in [`sample-export/`](sample-export/), so you
 can try them before exporting your own blog:
 
 ```sh
 uv run ssg/ortszeit_ssg.py sample-export -o site --serve
 uv run hugo/ortszeit_to_hugo.py sample-export -o mysite && cd mysite && hugo server
+uv run astro/ortszeit_to_astro.py sample-export -o myastro && cd myastro && npm install && npm run dev
 ```
 
 These are examples, kept short enough to read. Ortszeit's own command-line tool
